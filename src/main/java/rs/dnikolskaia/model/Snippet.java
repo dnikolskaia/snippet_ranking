@@ -16,4 +16,13 @@ public class Snippet {
         String className = usage.method().address().clazz().name();
         this.fullMethodName = packageName + "." + className + "." + methodName + "()";
     }
+
+    public int getCodeLineCount() {
+        return text.split("\n").length;
+    }
+
+    @Override
+    public String toString() {
+        return text;
+    }
 }

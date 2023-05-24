@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class SnippetStorage {
+public class SnippetStorage implements Iterable<Map.Entry<String, ArrayList<Snippet>>> {
     private final HashMap<String, ArrayList<Snippet>> snippetMap;
 
     public SnippetStorage() {
@@ -24,12 +24,17 @@ public class SnippetStorage {
     }
 
     @Override
+    public Iterator<Map.Entry<String, ArrayList<Snippet>>> iterator() {
+        return snippetMap.entrySet().iterator();
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, ArrayList<Snippet>> entry : snippetMap.entrySet()) {
-            sb.append("Usages of ").append(entry.getKey()).append(":\n");
-            entry.getValue().forEach(snippet -> sb.append(snippet.getText()).append("\n\n"));
-        }
+        snippetMap.forEach((key, value) -> {
+            sb.append("Usages of ").append(key).append(":\n");
+            value.forEach(snippet -> sb.append(snippet.toString()).append("\n\n"));
+        });
 
         return sb.toString();
     }
