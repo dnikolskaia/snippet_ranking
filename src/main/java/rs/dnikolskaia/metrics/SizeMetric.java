@@ -4,6 +4,8 @@ import rs.dnikolskaia.model.Snippet;
 
 import java.util.List;
 
+
+// Metric to score the size of a snippet. Smaller snippets are better to understand.
 public class SizeMetric {
     private int maxCodeLines;
     private int minCodeLines;

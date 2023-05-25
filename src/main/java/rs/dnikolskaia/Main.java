@@ -2,6 +2,7 @@ package rs.dnikolskaia;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import rs.dnikolskaia.metrics.ParamMetric;
 import rs.dnikolskaia.metrics.SizeMetric;
 import rs.dnikolskaia.model.FileDescription;
 import rs.dnikolskaia.model.Snippet;
@@ -38,10 +39,14 @@ public class Main {
 
 
         snippetStorage.forEach(entry -> {
-//            String methodName = entry.getKey();
             ArrayList<Snippet> snippets = entry.getValue();
             SizeMetric sizeMetric = new SizeMetric(snippets);
-            snippets.sort(Comparator.comparingDouble(sizeMetric::getScore));
+            snippets.sort(Comparator.comparingDouble(sizeMetric::getScore).reversed());
+        });
+
+        snippetStorage.forEach(entry -> {
+            ArrayList<Snippet> snippets = entry.getValue();
+            snippets.sort(Comparator.comparingDouble(ParamMetric::getScore).reversed());
         });
 
         System.out.println(snippetStorage);
