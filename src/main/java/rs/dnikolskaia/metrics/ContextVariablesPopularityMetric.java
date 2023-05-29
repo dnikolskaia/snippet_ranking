@@ -3,9 +3,7 @@ package rs.dnikolskaia.metrics;
 import rs.dnikolskaia.model.Snippet;
 import rs.dnikolskaia.model.Usage;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ContextVariablesPopularityMetric implements Metric{
     private final int snippetsAmount;
@@ -21,12 +19,11 @@ public class ContextVariablesPopularityMetric implements Metric{
             var variables = snippet.getUsage().context().variables();
             if (variables.isEmpty())
                 counter += 1;
-            for (var variable : variables) {
-                String fullClassName = getFullClassName(variable);
-                usageCount.compute(fullClassName, (func, count) -> count == null ? 1 : count + 1);
+            Set<String> uniqueClassNames = new HashSet<>();
+            variables.forEach(variable -> uniqueClassNames.add(getFullClassName(variable)));
+            uniqueClassNames.forEach(className ->
+                usageCount.compute(className, (func, count) -> count == null ? 1 : count + 1));
             }
-        }
-
         emptyCount = counter;
     }
 

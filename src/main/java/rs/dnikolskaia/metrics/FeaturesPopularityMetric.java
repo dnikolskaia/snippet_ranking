@@ -3,16 +3,14 @@ package rs.dnikolskaia.metrics;
 import rs.dnikolskaia.model.Snippet;
 import rs.dnikolskaia.model.Usage;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public abstract class PopularityMetric implements Metric {
+public abstract class FeaturesPopularityMetric implements Metric {
     private final int snippetsAmount;
     private final int emptyCount;
     private final Map<String, Integer> usagesCount;
 
-    public PopularityMetric(List<Snippet> snippets) {
+    public FeaturesPopularityMetric(List<Snippet> snippets) {
         snippetsAmount = snippets.size();
         usagesCount = new HashMap<>();
         int counter = 0;
@@ -21,10 +19,10 @@ public abstract class PopularityMetric implements Metric {
             if (methods.isEmpty()) {
                 counter++;
             } else {
-                for (var method : methods) {
-                    String fullFunctionName = getFullFunctionName(method);
-                    usagesCount.compute(fullFunctionName, (func, count) -> count == null ? 1 : count + 1);
-                }
+                Set<String> uniqueFunctions = new HashSet<>();
+                methods.forEach(method -> uniqueFunctions.add(getFullFunctionName(method)));
+                uniqueFunctions.forEach(functionName ->
+                    usagesCount.compute(functionName, (func, count) -> count == null ? 1 : count + 1));
             }
         }
         emptyCount = counter;

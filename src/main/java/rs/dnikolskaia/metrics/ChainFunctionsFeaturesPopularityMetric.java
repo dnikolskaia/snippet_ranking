@@ -4,13 +4,11 @@ import rs.dnikolskaia.model.Snippet;
 import rs.dnikolskaia.model.Usage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class ChainFunctionsPopularityMetric extends PopularityMetric {
+public class ChainFunctionsFeaturesPopularityMetric extends FeaturesPopularityMetric {
 
-    public ChainFunctionsPopularityMetric(List<Snippet> snippets) {
+    public ChainFunctionsFeaturesPopularityMetric(List<Snippet> snippets) {
         super(snippets);
     }
 
