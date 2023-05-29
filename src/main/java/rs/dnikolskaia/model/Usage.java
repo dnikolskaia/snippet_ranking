@@ -10,7 +10,8 @@ import java.util.List;
 public record Usage(
         Place place,
         Method method,
-        Context context
+        Context context,
+        FeaturesPack featuresPack
 ) {
     public record Place(
             Address address,
@@ -97,7 +98,8 @@ public record Usage(
             @JsonSubTypes.Type(value = VariableParameter.class, name = "var"),
             @JsonSubTypes.Type(value = LiteralParameter.class, name = "literal"),
             @JsonSubTypes.Type(value = CallParameter.class, name = "call"),
-            @JsonSubTypes.Type(value = NewParameter.class, name = "new")
+            @JsonSubTypes.Type(value = NewParameter.class, name = "new"),
+            @JsonSubTypes.Type(value = UnknownParameter.class, name = "unknown"),
     })
     public interface Parameter {
     }
@@ -129,6 +131,12 @@ public record Usage(
     public record NewParameter(
             String type,
             NewParameterValue parameter
+    ) implements Parameter {
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public record UnknownParameter(
+            String type
     ) implements Parameter {
     }
 
@@ -179,4 +187,35 @@ public record Usage(
     ) {
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public record FeaturesPack(
+            CategoryFeatures categoryFeatures,
+            PreviousCalls previousCalls
+    ) {
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public record CategoryFeatures(
+            ParentFunction parentFunction,
+            Chain chain
+    ) {
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public record ParentFunction(String type, ParentFunctionFact fact) {
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public record ParentFunctionFact(Method method, boolean isLambda, Range range) {
+        }
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public record Chain(String type, ChainFact fact) {
+        public record ChainFact(List<Method> methods, Range range) {
+        }
+    }
+
+    public record PreviousCalls(String type, PreviousCallsFact fact) {
+        public record PreviousCallsFact(List<Method> methods) {
+        }
+    }
 }

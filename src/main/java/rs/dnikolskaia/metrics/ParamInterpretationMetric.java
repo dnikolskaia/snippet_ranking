@@ -8,8 +8,10 @@ import java.util.List;
 
 // Metric to score parameters of the method. Scores how easy to interpret parameters.
 // TODO: store param type scores as constants
-public class ParamMetric {
-    public static Double getScore(Snippet snippet) {
+// TODO: for call get recursion score?
+public class ParamInterpretationMetric implements Metric{
+    @Override
+    public double score(Snippet snippet) {
         List<Usage.Parameter> params = snippet.getUsage().context().parameters();
         double score = 0.0;
 
@@ -20,7 +22,7 @@ public class ParamMetric {
             if (param instanceof Usage.LiteralParameter)
                 score += 1.0;
             if (param instanceof Usage.NewParameter)
-                score += 1.0;
+                score += 0.8;
 
             if (param instanceof Usage.ExpressionParameter expressionParameter) {
                 String expressionType = expressionParameter.parameter().type().name();

@@ -1,12 +1,11 @@
 package rs.dnikolskaia.metrics;
-
 import rs.dnikolskaia.model.Snippet;
 
 import java.util.List;
 
 
 // Metric to score the size of a snippet. Smaller snippets are better to understand.
-public class SizeMetric {
+public class SizeMetric implements Metric {
     private int maxCodeLines;
     private int minCodeLines;
 
@@ -21,7 +20,8 @@ public class SizeMetric {
         }
     }
 
-    public Double getScore(Snippet snippet) {
+    @Override
+    public double score(Snippet snippet) {
         if (maxCodeLines == minCodeLines) {
             return 1.0; // All snippets have the same size
         }
