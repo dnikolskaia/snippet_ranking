@@ -1,10 +1,16 @@
 package rs.dnikolskaia.metrics;
+
 import rs.dnikolskaia.model.Snippet;
 
 import java.util.List;
 
 
-// Metric to score the size of a snippet. Smaller snippets are better to understand.
+/**
+ * The SizeMetric class evaluates code snippet sizes based on the number of code lines.
+ * It calculates the score for a given snippet based on its code line count in relation
+ * to the maximum and minimum code line counts among a list of snippets.
+ */
+
 public class SizeMetric implements Metric {
     private int maxCodeLines;
     private int minCodeLines;

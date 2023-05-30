@@ -5,6 +5,11 @@ import rs.dnikolskaia.model.Snippet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The CombinedMetric class combines multiple metrics to evaluate the quality of code snippets.
+ * It calculates a score by considering the size of the snippet, the ease of interpreting method parameters,
+ * and the popularity of method usage among snippets.
+ */
 public class CombinedMetric implements Metric {
     private final SizeMetric sizeMetric;
     private final ParamInterpretationMetric paramInterpretationMetric;

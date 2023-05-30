@@ -10,8 +10,8 @@ public class Snippet {
 
     public Snippet(Usage usage, String fileText) {
         this.usage = usage;
-        this.text = fileText.substring(usage.context().absoluteRange().start(), usage.context().absoluteRange().end());
-        this.fullMethodName = getPackageName() + "." + getClassName() + "." + getFunctionName() + "()";
+        this.text = getSnippetText(fileText, usage);
+        this.fullMethodName = getPackageName() + "." + getClassName() + "." + getFunctionName();
     }
 
     public int getCodeLineCount() {
@@ -33,5 +33,11 @@ public class Snippet {
     @Override
     public String toString() {
         return text;
+    }
+
+    private String getSnippetText(String fileText, Usage usage) {
+        int start = usage.context().absoluteRange().start();
+        int end = usage.context().absoluteRange().end();
+        return fileText.substring(start, end);
     }
 }

@@ -5,6 +5,10 @@ import rs.dnikolskaia.model.Usage;
 
 import java.util.*;
 
+/**
+ * The ContextVariablesPopularityMetric class evaluates code snippets popularity
+ * based on how common their types of context variables among other snippets.
+ */
 public class ContextVariablesPopularityMetric implements Metric{
     private final int snippetsAmount;
     private final int emptyCount;

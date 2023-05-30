@@ -6,10 +6,15 @@ import rs.dnikolskaia.model.Usage;
 import java.util.List;
 
 
-// Metric to score parameters of the method. Scores how easy to interpret parameters.
-// TODO: store param type scores as constants
-// TODO: for call get recursion score?
+/**
+ * The ParamInterpretationMetric class evaluates the quality of code snippets
+ * based on the ease of interpreting and understanding method parameters.
+ */
 public class ParamInterpretationMetric implements Metric{
+    private static final double LITERAL_PARAMETER_SCORE = 1.0;
+    private static final double NEW_PARAMETER_SCORE = 0.8;
+    private static final double STRING_EXPRESSION_PARAMETER_SCORE = 0.5;
+    private static final double INITIALIZED_VARIABLE_PARAMETER_SCORE = 1.0;
     @Override
     public double score(Snippet snippet) {
         List<Usage.Parameter> params = snippet.getUsage().context().parameters();
@@ -20,20 +25,19 @@ public class ParamInterpretationMetric implements Metric{
 
         for (Usage.Parameter param : params) {
             if (param instanceof Usage.LiteralParameter)
-                score += 1.0;
+                score += LITERAL_PARAMETER_SCORE;
             if (param instanceof Usage.NewParameter)
-                score += 0.8;
+                score += NEW_PARAMETER_SCORE;
 
             if (param instanceof Usage.ExpressionParameter expressionParameter) {
                 String expressionType = expressionParameter.parameter().type().name();
-                // TODO: Add numeric type score as ~0.5, I don't know yet how they described
                 if (expressionType.equals("String"))
-                    score += 0.5;
+                    score += STRING_EXPRESSION_PARAMETER_SCORE;
             }
             if (param instanceof Usage.VariableParameter variableParameter) {
                 boolean initialized = variableParameter.parameter().variable().initialized();
                 if (initialized)
-                    score += 1.0;
+                    score += INITIALIZED_VARIABLE_PARAMETER_SCORE;
             }
         }
         return score / params.size();

@@ -5,6 +5,11 @@ import rs.dnikolskaia.model.Usage;
 
 import java.util.*;
 
+/**
+ * The FeaturesPopularityMetric is an abstract class that represents metrics for evaluating the popularity
+ * of code snippets based on their feature usages among other snippets.
+ * Subclasses of this abstract class provide specific implementations of feature-based metrics.
+ */
 public abstract class FeaturesPopularityMetric implements Metric {
     private final int snippetsAmount;
     private final int emptyCount;
