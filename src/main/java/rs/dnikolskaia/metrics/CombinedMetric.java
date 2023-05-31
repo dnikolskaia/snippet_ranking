@@ -11,6 +11,10 @@ import java.util.List;
  * and the popularity of method usage among snippets.
  */
 public class CombinedMetric implements Metric {
+    public static final double POPULARITY_METRIC_WEIGHT = 1.5;
+    public static final double SIZE_METRIC_WEIGHT = 0.5;
+    public static final double PARAM_METRIC_WEIGHT = 1.0;
+
     private final SizeMetric sizeMetric;
     private final ParamInterpretationMetric paramInterpretationMetric;
     private final List<Metric> popularityMetrics;
@@ -26,7 +30,9 @@ public class CombinedMetric implements Metric {
         double paramInterpretationScore = paramInterpretationMetric.score(snippet);
         double sizeScore = sizeMetric.score(snippet);
 
-        return 1.5 * popularityScore + paramInterpretationScore + sizeScore;
+        return POPULARITY_METRIC_WEIGHT * popularityScore +
+            PARAM_METRIC_WEIGHT * paramInterpretationScore +
+            SIZE_METRIC_WEIGHT * sizeScore;
     }
 
     private List<Metric> createPopularityMetrics(List<Snippet> snippets) {
