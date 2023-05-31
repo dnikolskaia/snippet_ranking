@@ -1,6 +1,7 @@
 package rs.dnikolskaia.metrics;
 
 import org.junit.jupiter.api.Test;
+import rs.dnikolskaia.metrics.popularity.PreviousCallsPopularityMetric;
 import rs.dnikolskaia.model.Snippet;
 import rs.dnikolskaia.model.Usage;
 

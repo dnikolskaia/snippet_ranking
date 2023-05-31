@@ -1,5 +1,9 @@
 package rs.dnikolskaia.metrics;
 
+import rs.dnikolskaia.metrics.popularity.ChainFunctionsPopularityMetric;
+import rs.dnikolskaia.metrics.popularity.ContextVariablesPopularityMetric;
+import rs.dnikolskaia.metrics.popularity.ParentFunctionPopularityMetric;
+import rs.dnikolskaia.metrics.popularity.PreviousCallsPopularityMetric;
 import rs.dnikolskaia.model.Snippet;
 
 import java.util.ArrayList;

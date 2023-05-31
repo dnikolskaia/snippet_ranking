@@ -10,7 +10,6 @@ import java.util.List;
  * It calculates the score for a given snippet based on its code line count in relation
  * to the maximum and minimum code line counts among a list of snippets.
  */
-
 public class SizeMetric implements Metric {
     private int maxCodeLines;
     private int minCodeLines;

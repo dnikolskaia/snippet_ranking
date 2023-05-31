@@ -1,6 +1,7 @@
 package rs.dnikolskaia.metrics;
 
 import org.junit.jupiter.api.Test;
+import rs.dnikolskaia.metrics.popularity.ContextVariablesPopularityMetric;
 import rs.dnikolskaia.model.Snippet;
 
 import java.util.List;

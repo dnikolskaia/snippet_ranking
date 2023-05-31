@@ -10,12 +10,14 @@ public class OptionsUtil {
 
     private final String USAGE_MSG = "ranks snippets of method usages " +
         "provided in json artifact and stores one file per method to result folder";
+
     public OptionsUtil(String[] args) {
         this.args = args;
         options = createOptions();
         parser = new DefaultParser();
         helper = new HelpFormatter();
     }
+
     private Options createOptions() {
         Options options = new Options();
         Option artifactPath = Option.builder("a").longOpt("artifact_path")
@@ -39,7 +41,7 @@ public class OptionsUtil {
         CommandLine cmd;
         try {
             cmd = parser.parse(options, args);
-            if(cmd.hasOption("a"))
+            if (cmd.hasOption("a"))
                 return cmd.getOptionValue("artifact_path");
         } catch (ParseException e) {
             System.out.println(e.getMessage());
@@ -53,7 +55,7 @@ public class OptionsUtil {
         CommandLine cmd;
         try {
             cmd = parser.parse(options, args);
-            if(cmd.hasOption("r"))
+            if (cmd.hasOption("r"))
                 return cmd.getOptionValue("result_folder_path");
         } catch (ParseException e) {
             System.out.println(e.getMessage());

@@ -1,5 +1,6 @@
-package rs.dnikolskaia.metrics;
+package rs.dnikolskaia.metrics.popularity;
 
+import rs.dnikolskaia.metrics.Metric;
 import rs.dnikolskaia.model.Snippet;
 import rs.dnikolskaia.model.Usage;
 

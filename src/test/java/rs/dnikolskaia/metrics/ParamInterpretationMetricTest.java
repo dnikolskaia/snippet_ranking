@@ -2,6 +2,7 @@ package rs.dnikolskaia.metrics;
 
 import org.junit.jupiter.api.Test;
 import rs.dnikolskaia.model.Snippet;
+import rs.dnikolskaia.model.scorers.*;
 
 import java.util.List;
 
@@ -14,25 +15,25 @@ class ParamInterpretationMetricTest {
         Metric metric = new ParamInterpretationMetric();
         Snippet snippet = createTestSnippet(List.of(createLiteralParameter()));
 
-        assertEquals(ParamInterpretationMetric.LITERAL_PARAMETER_SCORE, metric.score(snippet));
+        assertEquals(LiteralScorer.LITERAL_PARAMETER_SCORE, metric.score(snippet));
 
         snippet = createTestSnippet(List.of(createVariableParameter(true)));
-        assertEquals(ParamInterpretationMetric.INITIALIZED_VARIABLE_PARAMETER_SCORE, metric.score(snippet));
+        assertEquals(VariableScorer.INITIALIZED_VARIABLE_PARAMETER_SCORE, metric.score(snippet));
 
         snippet = createTestSnippet(List.of(createVariableParameter(false)));
-        assertEquals(ParamInterpretationMetric.UNINITIALIZED_VARIABLE_PARAMETER_SCORE, metric.score(snippet));
+        assertEquals(VariableScorer.UNINITIALIZED_VARIABLE_PARAMETER_SCORE, metric.score(snippet));
 
         snippet = createTestSnippet(List.of(createExpressionParameter("some type")));
-        assertEquals(ParamInterpretationMetric.OTHER_EXPRESSION_PARAMETER_SCORE, metric.score(snippet));
+        assertEquals(ExpressionScorer.OTHER_EXPRESSION_PARAMETER_SCORE, metric.score(snippet));
 
         snippet = createTestSnippet(List.of(createExpressionParameter("String")));
-        assertEquals(ParamInterpretationMetric.STRING_EXPRESSION_PARAMETER_SCORE, metric.score(snippet));
+        assertEquals(ExpressionScorer.STRING_EXPRESSION_PARAMETER_SCORE, metric.score(snippet));
 
         snippet = createTestSnippet(List.of(createNewParameter()));
-        assertEquals(ParamInterpretationMetric.NEW_PARAMETER_SCORE, metric.score(snippet));
+        assertEquals(NewScorer.NEW_PARAMETER_SCORE, metric.score(snippet));
 
         snippet = createTestSnippet(List.of(createCallParameter()));
-        assertEquals(ParamInterpretationMetric.CALL_PARAMETER_SCORE, metric.score(snippet));
+        assertEquals(CallScorer.CALL_PARAMETER_SCORE, metric.score(snippet));
 
     }
 
@@ -47,9 +48,9 @@ class ParamInterpretationMetricTest {
         Snippet snippet = createTestSnippet(parameters);
 
         double actualScore = metric.score(snippet);
-        double expectedScore = (ParamInterpretationMetric.LITERAL_PARAMETER_SCORE
-            + ParamInterpretationMetric.INITIALIZED_VARIABLE_PARAMETER_SCORE
-            + ParamInterpretationMetric.CALL_PARAMETER_SCORE) / parameters.size();
+        double expectedScore = (LiteralScorer.LITERAL_PARAMETER_SCORE
+            + VariableScorer.INITIALIZED_VARIABLE_PARAMETER_SCORE
+            + CallScorer.CALL_PARAMETER_SCORE) / parameters.size();
 
         assertEquals(expectedScore, actualScore, 0.0001);
     }

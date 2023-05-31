@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FileUtil {
-    public static List<FileDescription> readFileDescriptions (String artifactPath) {
+    public static List<FileDescription> readFileDescriptions(String artifactPath) {
         ObjectMapper objectMapper = new ObjectMapper();
         List<String> jsonArray = new ArrayList<>();
         try {
