@@ -28,6 +28,23 @@ result_folder
 
 Each method will have a separate file containing the snippets ranked from the most informative to the least informative.
 
+## Execution Instructions
+### Running tests
+To run tests use the following command in the root folder of the project:
+```bash
+mvn test
+```
+
+### Executing the program
+
+To process the artifact file, which is about 5GB in size, you may need to increase the heap memory by setting an environment variable.
+```bash
+export MAVEN_OPTS="-Xmx15g"
+```
+To execute the program, use the following command in the root folder of the project:
+```bash
+mvn exec:java -Dexec.args="-a=/path_to_artifact/artifact.json -r=/path_to_result_folder"
+```     
 ## Approach explanation
 ### Informativeness of Code Snippets
 An informative snippet should provide a developer with information on how to use a method. To achieve this goal, an informative snippet should have the following characteristics:
