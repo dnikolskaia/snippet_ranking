@@ -6,19 +6,18 @@ import rs.dnikolskaia.model.Usage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChainFunctionsFeaturesPopularityMetric extends FeaturesPopularityMetric {
+public class PreviousCallsPopularityMetric extends FeaturesPopularityMetric {
 
-    public ChainFunctionsFeaturesPopularityMetric(List<Snippet> snippets) {
+    public PreviousCallsPopularityMetric(List<Snippet> snippets) {
         super(snippets);
     }
 
     @Override
     List<Usage.Method> getMethods(Snippet snippet) {
         List<Usage.Method> methods = new ArrayList<>();
-        var chain = snippet.getUsage().featuresPack().categoryFeatures().chain();
-        if (chain != null)
-            methods.addAll(chain.fact().methods());
+        var previousCalls = snippet.getUsage().featuresPack().previousCalls();
+        if (previousCalls != null)
+            methods.addAll(previousCalls.fact().methods());
         return methods;
     }
-
 }

@@ -26,15 +26,15 @@ public class CombinedMetric implements Metric {
         double paramInterpretationScore = paramInterpretationMetric.score(snippet);
         double sizeScore = sizeMetric.score(snippet);
 
-        return popularityScore + paramInterpretationScore + sizeScore;
+        return 1.5 * popularityScore + paramInterpretationScore + sizeScore;
     }
 
     private List<Metric> createPopularityMetrics(List<Snippet> snippets) {
         List<Metric> popularityMetrics = new ArrayList<>();
-        popularityMetrics.add(new ChainFunctionsFeaturesPopularityMetric(snippets));
+        popularityMetrics.add(new ChainFunctionsPopularityMetric(snippets));
         popularityMetrics.add(new ContextVariablesPopularityMetric(snippets));
-        popularityMetrics.add(new ParentFunctionFeaturesPopularityMetric(snippets));
-        popularityMetrics.add(new PreviousCallsFeaturesPopularityMetric(snippets));
+        popularityMetrics.add(new ParentFunctionPopularityMetric(snippets));
+        popularityMetrics.add(new PreviousCallsPopularityMetric(snippets));
         return popularityMetrics;
     }
 

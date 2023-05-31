@@ -42,10 +42,11 @@ public class ContextVariablesPopularityMetric implements Metric{
             return emptyCount * 1.0 / snippetsAmount;
 
         double score = 0;
-        for (var variable : variables) {
-            String fullClassName = getFullClassName(variable);
-            score += usageCount.get(fullClassName) * 1.0 / snippetsAmount;
+        Set<String> uniqueClassNames = new HashSet<>();
+        variables.forEach(variable -> uniqueClassNames.add(getFullClassName(variable)));
+        for (var type : uniqueClassNames) {
+            score += usageCount.get(type) * 1.0 / snippetsAmount;
         }
-        return score / variables.size();
+        return score / uniqueClassNames.size();
     }
 }

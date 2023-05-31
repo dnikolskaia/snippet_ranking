@@ -40,11 +40,13 @@ public abstract class FeaturesPopularityMetric implements Metric {
             return emptyCount * 1.0 / snippetsAmount;
 
         double score = 0;
-        for (var method : methods) {
-            int chainFunctionUsagesCount = usagesCount.getOrDefault(getFullFunctionName(method),0);
+        Set<String> uniqueFunctions = new HashSet<>();
+        methods.forEach(method -> uniqueFunctions.add(getFullFunctionName(method)));
+        for (var func : uniqueFunctions) {
+            int chainFunctionUsagesCount = usagesCount.getOrDefault(func,0);
             score += chainFunctionUsagesCount * 1.0 / snippetsAmount;
         }
-        return score / methods.size();
+        return score / uniqueFunctions.size();
     }
 
     private static String getFullFunctionName(Usage.Method method) {
